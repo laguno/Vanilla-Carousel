@@ -1,4 +1,20 @@
 body {
-  background-color: green;
+  background-color: #EEEEEE;
+}
+
+.p-rel {
+  position: relative;
+}
+
+.p-abs {
+  position: absolute;
+}
+
+.r-0 {
+  right: 0;
+}
+
+.l-0 {
+  left: 0;
 }
 /*# sourceMappingURL=styles.css.map */

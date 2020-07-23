@@ -1,1 +1,50 @@
-/* No CSS *//*# sourceMappingURL=carousel.css.map */
+.carousel {
+  height: auto;
+  padding: 15px;
+}
+
+.carousel_container {
+  overflow: hidden;
+  height: 400px;
+}
+
+.carousel_slider {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  height: 100%;
+}
+
+.carousel_slider.unwrap {
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+}
+
+.carousel_arrows {
+  height: 100%;
+  width: 100%;
+  top: 0;
+}
+
+.carousel_button {
+  width: 60px;
+  height: 100%;
+  opacity: 0.1;
+  background-color: #808080;
+  border: none;
+  position: absolute;
+}
+
+.carousel_button:hover {
+  opacity: 0.8;
+  -webkit-transition: opacity 0.5s;
+  transition: opacity 0.5s;
+  cursor: pointer;
+}
+
+.carousel_button .material-icons {
+  color: white;
+}
+/*# sourceMappingURL=carousel.css.map */

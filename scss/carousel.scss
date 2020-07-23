@@ -1,0 +1,42 @@
+$cardWidth: 200px;
+$arrowsWidth: 60px;
+$containerHeight: 400px;
+$arrowsBackground: #808080;
+.carousel {
+	height: auto;
+	padding: 15px;
+	&_container {
+		overflow: hidden;
+		height: $containerHeight;
+	}
+	&_slider {
+		display: flex;
+		flex-wrap: wrap;
+		
+		height: 100%;
+		&.unwrap {
+			flex-wrap: nowrap;
+		}
+	}
+	&_arrows {
+		height: 100%;
+		width: 100%;
+		top: 0;
+	}
+	&_button {
+		width: $arrowsWidth;
+		height: 100%;
+		opacity: 0.1;
+		background-color: $arrowsBackground;
+		border: none;
+		position: absolute;
+		&:hover {
+			opacity: 0.8;
+			transition: opacity 0.5s;
+			cursor: pointer;
+		}
+		.material-icons {
+			color: white;
+		}
+	}
+}

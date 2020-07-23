@@ -1,0 +1,35 @@
+$cardWidth: 300px;
+$imageHeight: 200px;
+$cardTitleColor : #2764A8;
+
+.card {
+	&_item {
+		flex: 1 0 $cardWidth;
+		height: 100%;
+		margin: 2px 15px;
+		padding: 5px 0;
+		box-shadow: 2px 2px 4px 2px rgba(196,196,196,0.5);
+		max-height: 95%;
+	}
+	&_image {
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: cover;
+		height: $imageHeight;
+		width: 100%;
+	}
+	&_details {
+		bottom: 0;
+		position: absolute;
+		background-color: rgba($color: #000000, $alpha: .6);
+		color: white;
+		padding: 1px 10px;
+		&-type {
+			text-transform: uppercase;
+		}
+	}
+	&_title{
+		color: $cardTitleColor;
+		padding: 0 30px;
+	}
+}

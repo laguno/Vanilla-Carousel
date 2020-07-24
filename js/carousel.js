@@ -56,15 +56,15 @@ class Carousel {
 				type = document.createElement("DIV"),
 				duration = document.createElement("DIV");
 
-			imageContainer.classList.add("card_image","p-rel");
+			imageContainer.classList.add("card_image", "p-rel", "placeholder");
 			cardItem.appendChild(imageContainer);
 			imageContainer.style.backgroundImage = "url(" + options1.fetchCards().image + ")";
 
 			imageContainer.appendChild(type);
 			imageContainer.appendChild(duration);
 
-			type.classList.add("card_details", "card_details-type","l-0");
-			duration.classList.add("card_details", "card_details-duration","r-0");
+			type.classList.add("card_details", "card_details-type", "l-0", "placeholder");
+			duration.classList.add("card_details", "card_details-duration", "r-0", "placeholder");
 
 			type.innerHTML = options1.fetchCards().type;
 			duration.innerHTML = options1.fetchCards().duration;
@@ -77,18 +77,22 @@ class Carousel {
 			lowerCardContainer.appendChild(lowerCardTitle);
 
 			lowerCardContainer.classList.add("card_item-lower");
-			lowerCardTitle.classList.add("card_title");
+			lowerCardTitle.classList.add("card_title", "placeholder");
 
 			lowerCardTitle.innerHTML = options1.fetchCards().title;
-
-
-
-
-
-
-
-
 		}
+		var promise = new Promise(function (resolve, reject) {
+			let placeholders = document.querySelectorAll(".placeholder");
+			setTimeout(function () {
+				[].forEach.call(placeholders, function (el) {
+					el.classList.remove("placeholder");
+				});
+			}, 5000);
+			resolve();
+		});
+		promise.then(function () {
+			console.log("executed");
+		});
 	}
 	createContainer() {
 		let carousel = document.getElementById("" + this.container + ""),
@@ -115,22 +119,22 @@ class Carousel {
 		subTitleElem.appendChild(subtitle);
 		//Carousel Container
 		carousel.appendChild(carouselContainer);
-		carouselContainer.classList.add("carousel_container","p-rel");
+		carouselContainer.classList.add("carousel_container", "p-rel");
 		//Slider Container
 		carouselContainer.appendChild(carouselSlider);
-		carouselSlider.classList.add("carousel_slider","p-rel");
+		carouselSlider.classList.add("carousel_slider", "p-rel");
 		//Buttons Container
 		carouselContainer.appendChild(carouselArrows);
-		carouselArrows.classList.add("carousel_arrows","p-abs");
+		carouselArrows.classList.add("carousel_arrows", "p-abs");
 		//Prev Button
 		carouselArrows.appendChild(carouselArrowPrev);
-		carouselArrowPrev.classList.add("carousel_button", "carousel_button--prev","l-0");
+		carouselArrowPrev.classList.add("carousel_button", "carousel_button--prev", "l-0");
 		carouselArrowPrev.appendChild(carouselArrowSpanPrev);
 		carouselArrowSpanPrev.classList.add("material-icons");
 		carouselArrowSpanPrev.innerHTML = "chevron_left";
 		//Next Button
 		carouselArrows.appendChild(carouselArrowNext);
-		carouselArrowNext.classList.add("carousel_button", "carousel_button--next","r-0");
+		carouselArrowNext.classList.add("carousel_button", "carousel_button--next", "r-0");
 		carouselArrowNext.appendChild(carouselArrowSpanNext);
 		carouselArrowSpanNext.classList.add("material-icons");
 		carouselArrowSpanNext.innerHTML = "chevron_right";
@@ -147,7 +151,7 @@ class Carousel {
 var options2 = {
 	container: "my-carousel2",
 	title: "Another carousel instance title",
-	subtitle: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+	subtitle: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut ",
 	fetchCards: function (chunkSize) {
 		// see otions1 for the specifications of this function
 	}

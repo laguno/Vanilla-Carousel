@@ -10,6 +10,10 @@
   max-height: 95%;
 }
 
+.card_item-lower {
+  padding: 5px 30px;
+}
+
 .card_image {
   background-position: center;
   background-repeat: no-repeat;
@@ -31,7 +35,11 @@
 }
 
 .card_title {
-  color: #2764A8;
-  padding: 0 30px;
+  color: #2764a8;
+}
+
+.placeholder {
+  background: #e4e6e5 !important;
+  color: #e4e6e5 !important;
 }
 /*# sourceMappingURL=card.css.map */

@@ -17,4 +17,8 @@ body {
 .l-0 {
   left: 0;
 }
+
+.hidden {
+  visibility: hidden;
+}
 /*# sourceMappingURL=styles.css.map */

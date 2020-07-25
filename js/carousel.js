@@ -38,8 +38,11 @@ class Carousel {
 		this.container = obj.container;
 		this.title = obj.title;
 		this.subtitle = obj.subtitle;
-		this.fetchCards = obj.fetchCards();
+		this.fetchCards = obj.fetchCards;
 	}
+	/* get container (){
+
+	} */
 	createCards(chunkSize) {
 		for (let i = 0; i < chunkSize; i++) {
 			//Creating single Card
@@ -94,6 +97,59 @@ class Carousel {
 			console.log("executed");
 		});
 	}
+	slide() {
+		let buttonPrev = document.getElementsByClassName("carousel_button--prev"),
+			buttonNext = document.getElementsByClassName("carousel_button--next"),
+			carousel = document.querySelector("#" + this.container + " .carousel_slider"),
+			carouselItems = document.querySelectorAll("#" + this.container + " .carousel_slider .card_item"),
+			cardWidth = document.querySelector("#" + this.container + " .carousel_slider .card_item").offsetWidth,
+			itemsNumber = carouselItems.length, leftPosition = 0;
+
+		
+		/* if (window.addEventListener) {
+			window.addEventListener("resize", onResizeEvent, true);
+		} */
+
+		/* function onResizeEvent() {
+			var cardElement = document.querySelector(".card_item");
+			var newWidth = cardElement.offsetWidth;
+			if (newWidth != cardWidth) {
+				cardWidth = newWidth;
+				console.log(cardWidth);
+			}
+		} */
+
+		for (var i = 0; i < buttonNext.length; i++) {
+			buttonNext[i].addEventListener('click', next, false);
+		}
+		for (var i = 0; i < buttonPrev.length; i++) {
+			buttonPrev[i].addEventListener('click', prev, false);
+		}
+
+		function moveSlider(value) {
+			leftPosition += value * cardWidth;
+			carousel.style.left = leftPosition + "px";
+			console.log(Carousel.this.container);
+		}
+
+		function next() {
+			if (leftPosition > (itemsNumber - 1) * -cardWidth) {
+				moveSlider(-1);
+			} else {
+				leftPosition = 0;
+				carousel.style.left = leftPosition + 'px';
+			}
+		}
+
+		function prev() {
+			if (leftPosition !== 0) {
+				moveSlider(1);
+			} else {
+				leftPosition = (itemsNumber - 1) * -cardWidth;
+				carousel.style.left = leftPosition + 'px';
+			}
+		}
+	}
 	createContainer() {
 		let carousel = document.getElementById("" + this.container + ""),
 			carouselHeader = document.createElement("DIV"),
@@ -119,13 +175,13 @@ class Carousel {
 		subTitleElem.appendChild(subtitle);
 		//Carousel Container
 		carousel.appendChild(carouselContainer);
-		carouselContainer.classList.add("carousel_container", "p-rel");
+		carouselContainer.classList.add("carousel_container");
 		//Slider Container
 		carouselContainer.appendChild(carouselSlider);
-		carouselSlider.classList.add("carousel_slider", "p-rel");
+		carouselSlider.classList.add("carousel_slider");
 		//Buttons Container
 		carouselContainer.appendChild(carouselArrows);
-		carouselArrows.classList.add("carousel_arrows", "p-abs");
+		carouselArrows.classList.add("carousel_arrows");
 		//Prev Button
 		carouselArrows.appendChild(carouselArrowPrev);
 		carouselArrowPrev.classList.add("carousel_button", "carousel_button--prev", "l-0");
@@ -138,12 +194,12 @@ class Carousel {
 		carouselArrowNext.appendChild(carouselArrowSpanNext);
 		carouselArrowSpanNext.classList.add("material-icons");
 		carouselArrowSpanNext.innerHTML = "chevron_right";
-
 	}
 	init() {
 		let firstChunk = 5;
 		this.createContainer();
 		this.createCards(firstChunk);
+		this.slide();
 	}
 }
 
@@ -154,6 +210,31 @@ var options2 = {
 	subtitle: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut ",
 	fetchCards: function (chunkSize) {
 		// see otions1 for the specifications of this function
+		const type = ["video", "elearning", "learning plan", "playlist"];
+		const randomType = type[Math.floor(Math.random() * type.length)];
+
+		const titles = ["Printer Plus", "Rollers Robot", "Crab Dog", "Body Leash", "Printer Plants", "Male Crab", "Flowers Dislike", "Laptop Solar", "Floppy Disk Settings", "Dog Shower"];
+		const randomTitle = titles[Math.floor(Math.random() * titles.length)];
+
+		function getTime(min, max) {
+			min = Math.ceil(min);
+			max = Math.floor(max);
+			let duration = Math.floor(Math.random() * (max - min + 1)) + min;
+			if (duration < 3600) {
+				return Math.floor(duration % 3600 / 60) + ":" + Math.floor(duration % 3600 % 60);
+			} else {
+				return Math.floor(duration / 3600) + "h " + Math.floor(duration % 3600 / 60) + "m";
+			}
+		}
+		var randomPic = Math.floor(Math.random() * (1000 - 1 + 1)) + 1;
+
+		return {
+			image: `https://picsum.photos/seed/${randomPic}/300/200`, //url or random image taken from the web
+			type: randomType, // a string with the following allowed values (video, elearning, learning_plan, playlist)",
+			duration: getTime(60, 7200), // a duration in number of seconds (to be converted in human readable format, see mockup)
+			title: randomTitle,
+			cardinality: "single" // Whether this card is single or a stack of cards. Possible values = "single" or "collection"
+		};
 	}
 };
 document.addEventListener('DOMContentLoaded', (event) => {

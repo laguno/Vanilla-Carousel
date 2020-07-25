@@ -7,10 +7,10 @@ $placeholder: #e4e6e5;
 	&_item {
 		flex: 1 0 $cardWidth;
 		height: 100%;
-		margin: 2px 15px;
+		margin: 0px 15px;
 		padding: 5px 0;
 		box-shadow: 2px 2px 4px 2px rgba(196, 196, 196, 0.5);
-		max-height: 95%;
+		max-height: 96%;
 		&-lower {
 			padding: 5px 30px;
 		}

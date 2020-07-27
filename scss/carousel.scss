@@ -2,9 +2,43 @@ $cardWidth: 200px;
 $arrowsWidth: 60px;
 $containerHeight: 400px;
 $arrowsBackground: #808080;
+$iconBackground: #2368a9;
+$titleColor: #344f64;
+$subtitleColor: #b3b3b3;
 .carousel {
 	height: auto;
 	padding: 15px;
+	&_header {
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-start;
+		margin-bottom: 10px;
+		&-icon--container {
+			display: flex;
+			align-items: center;
+			flex-basis: 5%;
+			background-color: $iconBackground;
+			border-radius: 5px;
+			padding: 5px;
+			max-width: 50px;
+			max-height: 50px;
+			.material-icons {
+				margin: auto;
+				color: white;
+			}
+		}
+		&-text {
+			margin-left: 10px;
+		}
+		&--title {
+			color: $titleColor;
+			font-size: 1.5rem;
+		}
+		&--subtitle {
+			color: subtitleColor;
+			font-size: 1rem;
+		}
+	}
 	&_container {
 		overflow: hidden;
 		height: $containerHeight;

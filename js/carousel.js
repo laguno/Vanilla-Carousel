@@ -1,7 +1,8 @@
 var options1 = {
 	container: "my-carousel",
+	icon: "donut_small",
 	title: "Fresh and just uploaded content",
-	subtitle: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+	subtitle: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor",
 	fetchCards: function () {
 		// Function that returns "chunkSize" card object to be displayed in the carousel
 		// Each card object is structured as follows:
@@ -35,21 +36,79 @@ var options1 = {
 };
 class Carousel {
 	constructor(obj) {
-		this.container = obj.container;
-		this.title = obj.title;
-		this.subtitle = obj.subtitle;
+		this._container = obj.container;
+		this._title = obj.title;
+		this._subtitle = obj.subtitle;
+		this._icon = obj.icon;
 		this.fetchCards = obj.fetchCards;
 	}
-	/* get container (){
+	createContainer() {
+		//Containers
+		let carousel = document.getElementById("" + this._container + ""),
+			carouselHeader = document.createElement("DIV"),
+			carouselHeaderText = document.createElement("DIV"),
+			carouselContainer = document.createElement("DIV"),
+			carouselSlider = document.createElement("DIV");
+		//Buttons  
+		let carouselArrows = document.createElement("DIV"),
+			carouselArrowPrev = document.createElement("BUTTON"),
+			carouselArrowSpanPrev = document.createElement("SPAN"),
+			carouselArrowNext = document.createElement("BUTTON"),
+			carouselArrowSpanNext = document.createElement("SPAN");
+		//Title subtitle icon
+		let carouselIconContainer = document.createElement("DIV"),
+			carouselIcon = document.createElement("SPAN"),
+			titleElem = document.createElement("DIV"),
+			subTitleElem = document.createElement("DIV"),
+			title = document.createTextNode(this._title),
+			subtitle = document.createTextNode(this._subtitle);
 
-	} */
+		carousel.classList.add("carousel");
+		//Carousel Header
+		carousel.appendChild(carouselHeader);
+		carouselHeader.classList.add("carousel_header");
+		carouselIcon.classList.add("material-icons");
+		carouselHeader.appendChild(carouselIconContainer);
+		carouselIconContainer.appendChild(carouselIcon);
+		carouselHeader.appendChild(carouselHeaderText);
+		carouselIconContainer.classList.add("carousel_header-icon--container");
+		carouselHeaderText.classList.add("carousel_header-text");
+		carouselHeaderText.appendChild(titleElem);
+		carouselHeaderText.appendChild(subTitleElem);
+		titleElem.appendChild(title);
+		titleElem.classList.add("carousel_header--title");
+		subTitleElem.classList.add("carousel_header--subtitle");
+		subTitleElem.appendChild(subtitle);
+		carouselIcon.innerHTML = this._icon;
+		//Carousel Container
+		carousel.appendChild(carouselContainer);
+		carouselContainer.classList.add("carousel_container");
+		//Slider Container
+		carouselContainer.appendChild(carouselSlider);
+		carouselSlider.classList.add("carousel_slider");
+		//Buttons Container
+		carouselContainer.appendChild(carouselArrows);
+		carouselArrows.classList.add("carousel_arrows");
+		//Prev Button
+		carouselArrows.appendChild(carouselArrowPrev);
+		carouselArrowPrev.classList.add("carousel_button", "carousel_button--prev", "l-0");
+		carouselArrowPrev.appendChild(carouselArrowSpanPrev);
+		carouselArrowSpanPrev.classList.add("material-icons");
+		carouselArrowSpanPrev.innerHTML = "chevron_left";
+		//Next Button
+		carouselArrows.appendChild(carouselArrowNext);
+		carouselArrowNext.classList.add("carousel_button", "carousel_button--next", "r-0");
+		carouselArrowNext.appendChild(carouselArrowSpanNext);
+		carouselArrowSpanNext.classList.add("material-icons");
+		carouselArrowSpanNext.innerHTML = "chevron_right";
+	}
 	createCards(chunkSize) {
 		for (let i = 0; i < chunkSize; i++) {
 			//Creating single Card
 			let data = this.fetchCards;
 
 			let cardItem = document.createElement("DIV"),
-				carouselSlider = document.getElementById("" + this.container + "").querySelector(".carousel_container .carousel_slider");
+				carouselSlider = document.getElementById("" + this._container + "").querySelector(".carousel_container .carousel_slider");
 
 			cardItem.classList.add("card_item", "card_item--" + i);
 			carouselSlider.appendChild(cardItem);
@@ -97,115 +156,19 @@ class Carousel {
 			console.log("executed");
 		});
 	}
-	slide() {
-		let buttonPrev = document.getElementsByClassName("carousel_button--prev"),
-			buttonNext = document.getElementsByClassName("carousel_button--next"),
-			carousel = document.querySelector("#" + this.container + " .carousel_slider"),
-			carouselItems = document.querySelectorAll("#" + this.container + " .carousel_slider .card_item"),
-			cardWidth = document.querySelector("#" + this.container + " .carousel_slider .card_item").offsetWidth,
-			itemsNumber = carouselItems.length, leftPosition = 0;
 
-		
-		/* if (window.addEventListener) {
-			window.addEventListener("resize", onResizeEvent, true);
-		} */
-
-		/* function onResizeEvent() {
-			var cardElement = document.querySelector(".card_item");
-			var newWidth = cardElement.offsetWidth;
-			if (newWidth != cardWidth) {
-				cardWidth = newWidth;
-				console.log(cardWidth);
-			}
-		} */
-
-		for (var i = 0; i < buttonNext.length; i++) {
-			buttonNext[i].addEventListener('click', next, false);
-		}
-		for (var i = 0; i < buttonPrev.length; i++) {
-			buttonPrev[i].addEventListener('click', prev, false);
-		}
-
-		function moveSlider(value) {
-			leftPosition += value * cardWidth;
-			carousel.style.left = leftPosition + "px";
-			console.log(Carousel.this.container);
-		}
-
-		function next() {
-			if (leftPosition > (itemsNumber - 1) * -cardWidth) {
-				moveSlider(-1);
-			} else {
-				leftPosition = 0;
-				carousel.style.left = leftPosition + 'px';
-			}
-		}
-
-		function prev() {
-			if (leftPosition !== 0) {
-				moveSlider(1);
-			} else {
-				leftPosition = (itemsNumber - 1) * -cardWidth;
-				carousel.style.left = leftPosition + 'px';
-			}
-		}
-	}
-	createContainer() {
-		let carousel = document.getElementById("" + this.container + ""),
-			carouselHeader = document.createElement("DIV"),
-			carouselContainer = document.createElement("DIV"),
-			carouselSlider = document.createElement("DIV"),
-			carouselArrows = document.createElement("DIV"),
-			carouselArrowPrev = document.createElement("BUTTON"),
-			carouselArrowSpanPrev = document.createElement("SPAN"),
-			carouselArrowNext = document.createElement("BUTTON"),
-			carouselArrowSpanNext = document.createElement("SPAN"),
-			titleElem = document.createElement("H2"),
-			subTitleElem = document.createElement("H5"),
-			title = document.createTextNode(this.title),
-			subtitle = document.createTextNode(this.subtitle);
-
-		carousel.classList.add("carousel");
-		//Carousel Header
-		carousel.appendChild(carouselHeader);
-		carouselHeader.classList.add("carousel_header");
-		carouselHeader.appendChild(titleElem);
-		carouselHeader.appendChild(subTitleElem);
-		titleElem.appendChild(title);
-		subTitleElem.appendChild(subtitle);
-		//Carousel Container
-		carousel.appendChild(carouselContainer);
-		carouselContainer.classList.add("carousel_container");
-		//Slider Container
-		carouselContainer.appendChild(carouselSlider);
-		carouselSlider.classList.add("carousel_slider");
-		//Buttons Container
-		carouselContainer.appendChild(carouselArrows);
-		carouselArrows.classList.add("carousel_arrows");
-		//Prev Button
-		carouselArrows.appendChild(carouselArrowPrev);
-		carouselArrowPrev.classList.add("carousel_button", "carousel_button--prev", "l-0");
-		carouselArrowPrev.appendChild(carouselArrowSpanPrev);
-		carouselArrowSpanPrev.classList.add("material-icons");
-		carouselArrowSpanPrev.innerHTML = "chevron_left";
-		//Next Button
-		carouselArrows.appendChild(carouselArrowNext);
-		carouselArrowNext.classList.add("carousel_button", "carousel_button--next", "r-0");
-		carouselArrowNext.appendChild(carouselArrowSpanNext);
-		carouselArrowSpanNext.classList.add("material-icons");
-		carouselArrowSpanNext.innerHTML = "chevron_right";
-	}
 	init() {
-		let firstChunk = 5;
+		let firstChunk = Math.floor(Math.random() * (15 - 5 + 1)) + 5;
 		this.createContainer();
 		this.createCards(firstChunk);
-		this.slide();
+		//this.slide();
 	}
 }
 
 
 var options2 = {
 	container: "my-carousel2",
+	icon: "event_seat",
 	title: "Another carousel instance title",
 	subtitle: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut ",
 	fetchCards: function (chunkSize) {
@@ -242,4 +205,84 @@ document.addEventListener('DOMContentLoaded', (event) => {
 	carousel1.init();
 	var carousel2 = new Carousel(options2);
 	carousel2.init();
+
+	function slide() {
+		let buttonPrev = document.querySelectorAll(".carousel_button--prev"),
+			buttonNext = document.querySelectorAll(".carousel_button--next"),
+			carouselItems = document.querySelectorAll(".carousel_slider .card_item"),
+			margin = 30,
+			sliders = document.querySelectorAll(".carousel_slider"),
+			cardWidth = document.querySelector(".carousel_slider .card_item").offsetWidth + margin,
+			itemsNumber = carouselItems.length,
+			leftPosition = 0;
+
+		function moveSlider(value, cont) {
+			leftPosition += value * cardWidth;
+			cont.style.left = leftPosition + "px";
+		}
+
+		function next(cont) {
+			if (leftPosition > (itemsNumber - 1) * -cardWidth) {
+				moveSlider(-1, cont);
+				console.log("contnext ", cont.parentElement.parentNode);
+			} else {
+				leftPosition = 0;
+				cont.style.left = leftPosition + 'px';
+			}
+		}
+
+		function prev() {
+			if (leftPosition !== 0) {
+				moveSlider(1);
+			} else {
+				leftPosition = (itemsNumber - 1) * -cardWidth;
+				carousel.style.left = leftPosition + 'px';
+			}
+		}
+		sliders.forEach(function (index, element) {
+			console.log("foreach ", index + " - " + element);
+			//element.setAttribute("id","carousel_slider" + index);
+		});
+
+		/* buttonNext.forEach(function(index,element){
+			element.onclick = function (event) {
+				container = event.target.parentElement.parentNode;
+				containerSlider = container.querySelector(".carousel_slider");
+				console.log("container ", container);
+				console.log("containerSlider ", containerSlider);
+			}
+		}); */
+
+
+		/* for (var i = 0; i < buttonNext.length; i++) {
+			buttonNext[i].onclick = function (event) {
+				container = event.target.parentElement.parentNode;
+				console.log("container ", container);
+				containerSlider = container.querySelector(".carousel_slider");
+				containerSlider.id = "carousel_slider--" + i;
+				console.log("containerSlider ", containerSlider);
+				//next(containerSlider);
+			}
+		} */
+		/*
+				for (var i = 0; i < buttonPrev.length; i++) {
+					buttonPrev[i].onclick = prev;
+				} */
+		/* if (window.addEventListener) {
+			window.addEventListener("resize", onResizeEvent, true);
+		} */
+
+		/* function onResizeEvent() {
+			var cardElement = document.querySelector(".card_item");
+			var newWidth = cardElement.offsetWidth;
+			if (newWidth != cardWidth) {
+				cardWidth = newWidth;
+				console.log(cardWidth);
+			}
+		} */
+
+
+
+	}
+	slide();
 });

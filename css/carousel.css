@@ -101,6 +101,10 @@
   cursor: pointer;
 }
 
+.carousel_button.disabled:hover {
+  opacity: .1;
+}
+
 .carousel_button .material-icons {
   color: white;
   font-size: 3rem;

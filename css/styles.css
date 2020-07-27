@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 body {
-  background-color: #EEEEEE;
-  font-family: 'Roboto', sans-serif;
+  background-color: #eeeeee;
+  font-family: "Roboto", sans-serif;
 }
 
 .p-rel {
@@ -22,5 +22,10 @@ body {
 
 .hidden {
   visibility: hidden;
+}
+
+.disabled {
+  cursor: not-allowed;
+  pointer-events: all !important;
 }
 /*# sourceMappingURL=styles.css.map */

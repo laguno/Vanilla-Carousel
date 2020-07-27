@@ -67,6 +67,7 @@ $subtitleColor: #b3b3b3;
 		background-color: $arrowsBackground;
 		border: none;
 		position: absolute;
+
 		&:focus {
 			border: none;
 		}
@@ -74,6 +75,11 @@ $subtitleColor: #b3b3b3;
 			opacity: 0.8;
 			transition: opacity 0.5s;
 			cursor: pointer;
+		}
+		&.disabled {
+			&:hover {
+				opacity:.1;
+			}
 		}
 		.material-icons {
 			color: white;

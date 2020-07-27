@@ -1,23 +1,26 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+$graybackground: #eeeeee;
 
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
-$graybackground : #EEEEEE;
-
-body{
+body {
 	background-color: $graybackground;
-	font-family: 'Roboto', sans-serif;
+	font-family: "Roboto", sans-serif;
 }
-.p-rel{
+.p-rel {
 	position: relative;
 }
-.p-abs{
+.p-abs {
 	position: absolute;
 }
-.r-0{
+.r-0 {
 	right: 0;
 }
-.l-0{
+.l-0 {
 	left: 0;
 }
-.hidden{
+.hidden {
 	visibility: hidden;
+}
+.disabled {
+	cursor: not-allowed;
+	pointer-events: all !important;
 }

@@ -209,12 +209,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
 	function slide() {
 		let buttonPrev = document.querySelectorAll(".carousel_button--prev"),
 			buttonNext = document.querySelectorAll(".carousel_button--next"),
-			carouselItems = document.querySelectorAll(".carousel_slider .card_item"),
-			margin = 30,
+			carouselItems = document.querySelectorAll(".carousel_slider .card_item"),margin = 30,
 			cardWidth = document.querySelector(".carousel_slider .card_item").offsetWidth + margin,
-			itemsNumber = carouselItems.length,
-			leftPosition = 0;
-
+			itemsNumber = carouselItems.length,leftPosition = 0;
 
 		function moveSlider(value, cont) {
 			leftPosition += value * cardWidth;
@@ -238,6 +235,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 				container.style.left = leftPosition + 'px';
 			}
 		}
+		
 		
 		buttonNext.forEach(function(element){
 			element.onclick = function(event){

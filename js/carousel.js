@@ -211,63 +211,49 @@ document.addEventListener('DOMContentLoaded', (event) => {
 			buttonNext = document.querySelectorAll(".carousel_button--next"),
 			carouselItems = document.querySelectorAll(".carousel_slider .card_item"),
 			margin = 30,
-			sliders = document.querySelectorAll(".carousel_slider"),
 			cardWidth = document.querySelector(".carousel_slider .card_item").offsetWidth + margin,
 			itemsNumber = carouselItems.length,
 			leftPosition = 0;
+
 
 		function moveSlider(value, cont) {
 			leftPosition += value * cardWidth;
 			cont.style.left = leftPosition + "px";
 		}
 
-		function next(cont) {
+		function next(container) {
 			if (leftPosition > (itemsNumber - 1) * -cardWidth) {
-				moveSlider(-1, cont);
-				console.log("contnext ", cont.parentElement.parentNode);
+				moveSlider(-1, container);
 			} else {
 				leftPosition = 0;
-				cont.style.left = leftPosition + 'px';
+				container.style.left = leftPosition + 'px';
 			}
 		}
 
-		function prev() {
+		function prev(container) {
 			if (leftPosition !== 0) {
-				moveSlider(1);
+				moveSlider(1,container);
 			} else {
 				leftPosition = (itemsNumber - 1) * -cardWidth;
-				carousel.style.left = leftPosition + 'px';
+				container.style.left = leftPosition + 'px';
 			}
 		}
-		sliders.forEach(function (index, element) {
-			console.log("foreach ", index + " - " + element);
-			//element.setAttribute("id","carousel_slider" + index);
+		
+		buttonNext.forEach(function(element){
+			element.onclick = function(event){
+				container = event.target.parentElement.parentNode;
+				containerSlider = container.querySelector(".carousel_slider");
+				next(containerSlider);
+			}
+		});
+		buttonPrev.forEach(function(element){
+			element.onclick = function(event){
+				container = event.target.parentElement.parentNode;
+				containerSlider = container.querySelector(".carousel_slider");
+				prev(containerSlider);
+			}
 		});
 
-		/* buttonNext.forEach(function(index,element){
-			element.onclick = function (event) {
-				container = event.target.parentElement.parentNode;
-				containerSlider = container.querySelector(".carousel_slider");
-				console.log("container ", container);
-				console.log("containerSlider ", containerSlider);
-			}
-		}); */
-
-
-		/* for (var i = 0; i < buttonNext.length; i++) {
-			buttonNext[i].onclick = function (event) {
-				container = event.target.parentElement.parentNode;
-				console.log("container ", container);
-				containerSlider = container.querySelector(".carousel_slider");
-				containerSlider.id = "carousel_slider--" + i;
-				console.log("containerSlider ", containerSlider);
-				//next(containerSlider);
-			}
-		} */
-		/*
-				for (var i = 0; i < buttonPrev.length; i++) {
-					buttonPrev[i].onclick = prev;
-				} */
 		/* if (window.addEventListener) {
 			window.addEventListener("resize", onResizeEvent, true);
 		} */
@@ -280,9 +266,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
 				console.log(cardWidth);
 			}
 		} */
-
-
-
 	}
 	slide();
 });
